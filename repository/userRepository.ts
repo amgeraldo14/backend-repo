@@ -1,5 +1,6 @@
 import User = require("../entities/user");
-const db = require("../config/firebaseConfig");
+const { db } = require("../config/firebaseConfig");
+
 const userDb = db.collection("users");
 
 async function getAllUser() {
@@ -14,22 +15,35 @@ async function getAllUser() {
 }
 
 async function getUserById(userId) {
-  const userRef = await userDb.doc(userId).get();
-  return userRef.data();
-}
-
-async function updateUser(userId: string, userData: Partial<User>) {
-  const userRef = userDb.doc(userId);
-  if (Object.keys(userData).length === 0) {
-    const userDoc = await userRef.get();
-    return { id: userDoc.id, ...userDoc.data() };
-  }
-  await userRef.update(userData);
-  const updatedUserDoc = await userRef.get();
-  if (!updatedUserDoc.exists) {
+  const query = userDb.where("userId", "==", userId);
+  const snapshot = await query.get();
+  if (snapshot.empty) {
     return null;
   }
-  return { id: updatedUserDoc.id, ...updatedUserDoc.data() } as User;
+  const userData = snapshot.docs[0].data();
+  return {
+    id: snapshot.docs[0].id,
+    ...userData,
+  };
+}
+
+async function updateUser(userId: string, payload: Partial<User>) {
+  const userQuery = userDb.where("userId", "==", userId);
+  const userSnapshot = await userQuery.get();
+  if (userSnapshot.empty) {
+    return {};
+  }
+  const userDocRef = userSnapshot.docs[0].ref;
+  const userData = userSnapshot.docs[0].data();
+  if (Object.keys(payload).length === 0) {
+    return { id: userSnapshot.docs[0].id, ...userData };
+  }
+  await userDocRef.update(payload);
+  const updatedUserSnapshot = await userDocRef.get();
+  if (!updatedUserSnapshot.exists) {
+    return null;
+  }
+  return { id: updatedUserSnapshot.id, ...updatedUserSnapshot.data() } as User;
 }
 
 module.exports = { getAllUser, updateUser, getUserById };
