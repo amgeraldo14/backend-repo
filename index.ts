@@ -1,5 +1,5 @@
 //@ts-ignore
-const app = require("./core/app.ts");
+const app = require("./core/app");
 
 const functions = require("firebase-functions");
 
