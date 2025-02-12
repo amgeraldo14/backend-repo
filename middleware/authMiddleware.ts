@@ -1,6 +1,7 @@
+//@ts-ignore
 const { admin } = require("../config/firebaseConfig");
 
-const authMiddleWare = async (req, res, next) => {
+const authMiddleWare = async (req: any, res: any, next: any) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {

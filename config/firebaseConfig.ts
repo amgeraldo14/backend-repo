@@ -1,4 +1,5 @@
 const { getFirestore } = require("firebase-admin/firestore");
+//@ts-ignore
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceKey.json");
 

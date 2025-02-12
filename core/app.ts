@@ -1,6 +1,9 @@
+//@ts-ignore
 const express = require("express");
+//@ts-ignore
 const app = express();
 const port = 3001;
+//@ts-ignore
 const userRoute = require("../routes/userRoutes");
 const cors = require("cors");
 
@@ -13,6 +16,4 @@ app.get("/", async (req: any, res: any) => {
 
 app.use(userRoute);
 
-app.listen(port, () => {
-  console.log(`backend app listening on port ${port}`);
-});
+module.exports = app;

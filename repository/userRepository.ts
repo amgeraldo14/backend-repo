@@ -7,14 +7,14 @@ async function getAllUser() {
   const userSnapshot = await userDb.get();
   const users: User[] = [];
 
-  userSnapshot.forEach((user) => {
+  userSnapshot.forEach((user: any) => {
     users.push({ id: user.id, ...user.data() });
   });
 
   return users;
 }
 
-async function getUserById(userId) {
+async function getUserById(userId: string) {
   const query = userDb.where("userId", "==", userId);
   const snapshot = await query.get();
   if (snapshot.empty) {

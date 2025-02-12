@@ -1,4 +1,6 @@
+//@ts-ignore
 const express = require("express");
+//@ts-ignore
 const userRoute = express.Router();
 const usersController = require("../controllers/userController");
 const authMiddleware = require("../middleware/authmiddleware");

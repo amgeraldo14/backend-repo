@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
-    "moduleDetection": "force"
-  }
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["."]
 }
