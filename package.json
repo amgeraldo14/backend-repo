@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "core/app.ts",
   "scripts": {
-    "start": "nodemon  core/app.ts"
+    "build": "tsc",
+    "start": "nodemon core/app.ts"
   },
   "author": "",
   "license": "ISC",
